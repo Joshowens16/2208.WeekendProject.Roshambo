@@ -3,6 +3,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import Leaderboard from "./components/Leaderboard";
 import Home from "./components/Home";
 import PlayerInfo from "./components/PlayerInfo";
+import CreateUser from "./components/CreateUser";
 
 const App = () => {
   const [players, setPlayers] = useState([]);
@@ -34,6 +35,7 @@ const App = () => {
           path={`/leaderboard/${selectedPlayer}`}
           element={<PlayerInfo selectedPlayer={selectedPlayer} />}
         />
+        <Route path={"/create-user"} element={<CreateUser />} />
       </Routes>
     </div>
   );
