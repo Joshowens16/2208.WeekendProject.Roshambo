@@ -16,6 +16,10 @@ router.get("/:playerId", async (req, res, next) => {
   });
   res.send(player);
 });
+// router.get("/*", async (req, res, next) => {
+//   const players = await Player.findAll();
+//   res.send(players);
+// });
 
 // PUT api/players/:playerId
 router.put("/:playerId", async (req, res, next) => {

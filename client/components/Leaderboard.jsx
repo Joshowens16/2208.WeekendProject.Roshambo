@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setLeadboard } from '../features/leaderboardSlice';
 
-const Leaderboard = ({ players, selectedPlayer, setSelectedPlayer }) => {
-    const getPlayer = (player) => {
-        const selected = player
-        setSelectedPlayer(selected)
-        console.log(selected)
+
+const Leaderboard = () => {
+    const [loading, setLoading] = useState();
+    const players = useSelector(
+        (state) => state.leaderboard.playerLeaderboard
+    );
+    const dispatch = useDispatch();
+    const fetchPlayers = async () => {
+        const players = await axios.get("/api/players")
+        console.log(players.data)
+        dispatch(setLeadboard(players.data))
+        setLoading(false)
     }
+    useEffect(()=> {
+        fetchPlayers();
+    },[])
+    if(loading) return "Loading..."
     return (
         <div>
             <h1>
@@ -28,7 +42,7 @@ const Leaderboard = ({ players, selectedPlayer, setSelectedPlayer }) => {
                                     <h3>{player.id}</h3>
                                 </td>
                                 <td>
-                                    <Link to={`/leaderboard/${player.id}`} onClick={()=> getPlayer(player.id)} >
+                                    <Link to={`/games/${player.id}`} onClick={()=> getPlayer(player.id)} key={player.id} >
                                     <h3>{player.username}</h3>
                                     </Link>
                                 </td>
