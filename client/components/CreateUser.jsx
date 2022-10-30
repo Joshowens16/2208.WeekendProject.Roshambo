@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addPlayer } from '../features/leaderboardSlice';
 const CreateUser = () => {
     const [username, setUsername] = useState('')
+    const dispatch = useDispatch();
 const inputHandler = () => {
     const input = event.target.value;
     setUsername(input)
-    console.log(username)
 }
 const submitHandler = (event) => {
     event.preventDefault();
     console.log(`username in scope ${username}`)
     const body = { username }
+    dispatch(addPlayer(body))
     axios.post('api/players', body);
+    console.log(playerLeaderboard)
+
 }
     return (
         <div>
